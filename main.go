@@ -1,18 +1,29 @@
 package main
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"go-boilerplate/api/middleware"
+	"fmt"
 	v1 "go-boilerplate/api/v1/routes"
+	"go-boilerplate/internal/config"
+	"go-boilerplate/internal/di"
+
 	"log"
 )
 
 func main() {
-	app := fiber.New(fiber.Config{ErrorHandler: middleware.FiberErrorHandler})
+	app, err := di.InitializeApp()
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	v1.SetupRoutes(app)
+	if err := v1.SetupRoutes(app); err != nil {
+		log.Fatalf("error setting application routes: %v\n", err)
+	}
 
-	if err := app.Listen("0.0.0.0:8080"); err != nil {
+	addr := fmt.Sprintf("%s:%d",
+		config.AppConfig.HTTPListenAddress,
+		config.AppConfig.HTTPListenPort,
+	)
+	if err := app.Listen(addr); err != nil {
 		log.Fatal(err)
 	}
 }

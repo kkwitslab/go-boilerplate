@@ -22,8 +22,9 @@ func NewPostgresUserRepository(db *gorm.DB) *PostgresUserRepository {
 	return &PostgresUserRepository{db: db}
 }
 
-func (r *PostgresUserRepository) CreateUser(user models.User) error {
-	return r.db.Create(&user).Error
+func (r *PostgresUserRepository) CreateUser(user models.User) (models.User, error) {
+	err := r.db.Create(&user).Error
+	return user, err
 }
 
 func (r *PostgresUserRepository) GetUserById(id string) (models.User, error) {

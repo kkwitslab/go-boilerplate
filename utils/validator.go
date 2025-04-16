@@ -5,9 +5,9 @@ import (
 	"go-boilerplate/api/v1/schemas"
 )
 
-func Validate(data any) []error {
-	v := validator.New(validator.WithRequiredStructEnabled())
+var v = validator.New(validator.WithRequiredStructEnabled())
 
+func Validate(data any) []error {
 	err := v.Struct(data)
 	if err == nil {
 		return nil
