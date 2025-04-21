@@ -52,9 +52,9 @@ func (s *UserService) GetUserById(id string) (v1.UserResponse, error) {
 }
 
 func (s *UserService) GetUserByEmail(email string) (v1.UserResponse, error) {
-	user, erremail := s.repo.GetUserByEmail(email)
-	if erremail != nil {
-		return v1.UserResponse{}, erremail
+	user, err := s.repo.GetUserByEmail(email)
+	if err != nil {
+		return v1.UserResponse{}, err
 	}
 
 	return v1.UserResponse{
