@@ -20,6 +20,18 @@ func main() {
 	}
 	moduleName = strings.TrimSpace(moduleName)
 
+	// Get directory name from user
+	fmt.Print("Enter directory name for the project (press Enter to use module name): ")
+	dirName, err := reader.ReadString('\n')
+	if err != nil {
+		fmt.Printf("Error reading input: %v\n", err)
+		os.Exit(1)
+	}
+	dirName = strings.TrimSpace(dirName)
+	if dirName == "" {
+		dirName = filepath.Base(moduleName)
+	}
+
 	// Get current directory
 	currentDir, err := os.Getwd()
 	if err != nil {
@@ -27,8 +39,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Create new directory with module name
-	dirName := filepath.Base(moduleName)
+	// Create new directory with specified name
 	if err := os.MkdirAll(dirName, 0755); err != nil {
 		fmt.Printf("Error creating directory: %v\n", err)
 		os.Exit(1)
@@ -68,7 +79,7 @@ func main() {
 	}
 
 	// Update imports in all Go files
-	if err := updateImports(".", "github.com/kkwitslab/go-boilerplate", moduleName); err != nil {
+	if err := updateImports(".", "go-github.com/kkwitslab/go-boilerplate", moduleName); err != nil {
 		fmt.Printf("Error updating imports: %v\n", err)
 		os.Exit(1)
 	}
