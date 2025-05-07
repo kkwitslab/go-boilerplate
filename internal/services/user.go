@@ -1,10 +1,10 @@
 package services
 
 import (
-	v1 "go-boilerplate/api/v1/schemas"
-	"go-boilerplate/internal/models"
-	"go-boilerplate/internal/repositories"
-	"go-boilerplate/utils"
+	v1 "github.com/kkwitslab/go-boilerplate/api/v1/schemas"
+	"github.com/kkwitslab/go-boilerplate/internal/models"
+	"github.com/kkwitslab/go-boilerplate/internal/repositories"
+	"github.com/kkwitslab/go-boilerplate/utils"
 )
 
 type UserService struct {

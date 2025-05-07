@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	v1 "go-boilerplate/api/v1/routes"
-	"go-boilerplate/internal/config"
-	"go-boilerplate/internal/di"
+
+	v1 "github.com/kkwitslab/go-boilerplate/api/v1/routes"
+	"github.com/kkwitslab/go-boilerplate/internal/config"
+	"github.com/kkwitslab/go-boilerplate/internal/di"
 
 	"log"
 )

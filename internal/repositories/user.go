@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"go-boilerplate/internal/models"
+	"github.com/kkwitslab/go-boilerplate/internal/models"
 
 	"gorm.io/gorm"
 )

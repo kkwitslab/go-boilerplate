@@ -68,7 +68,7 @@ func main() {
 	}
 
 	// Update imports in all Go files
-	if err := updateImports(".", "go-boilerplate", moduleName); err != nil {
+	if err := updateImports(".", "github.com/kkwitslab/go-boilerplate", moduleName); err != nil {
 		fmt.Printf("Error updating imports: %v\n", err)
 		os.Exit(1)
 	}

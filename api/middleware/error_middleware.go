@@ -2,8 +2,9 @@ package middleware
 
 import (
 	"errors"
+
 	"github.com/gofiber/fiber/v2"
-	"go-boilerplate/api"
+	"github.com/kkwitslab/go-boilerplate/api"
 )
 
 // FiberErrorHandler Fiber error handler for app.Config.ErrorHandler

@@ -2,12 +2,13 @@ package di
 
 import (
 	"fmt"
-	"go-boilerplate/api/middleware"
-	"go-boilerplate/internal/config"
-	"go-boilerplate/internal/models"
-	"go-boilerplate/internal/repositories"
-	"go-boilerplate/internal/services"
 	"log"
+
+	"github.com/kkwitslab/go-boilerplate/api/middleware"
+	"github.com/kkwitslab/go-boilerplate/internal/config"
+	"github.com/kkwitslab/go-boilerplate/internal/models"
+	"github.com/kkwitslab/go-boilerplate/internal/repositories"
+	"github.com/kkwitslab/go-boilerplate/internal/services"
 
 	"go.uber.org/dig"
 

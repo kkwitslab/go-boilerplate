@@ -1,9 +1,10 @@
 package handlers
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"go-boilerplate/api"
 	"net/http"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/kkwitslab/go-boilerplate/api"
 )
 
 func HandleHealthCheck(c *fiber.Ctx) error {

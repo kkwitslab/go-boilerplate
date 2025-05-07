@@ -1,10 +1,11 @@
 package middleware
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"go-boilerplate/api"
-	"go-boilerplate/utils"
 	"net/http"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/kkwitslab/go-boilerplate/api"
+	"github.com/kkwitslab/go-boilerplate/utils"
 )
 
 func ValidatorMiddleware[T any]() fiber.Handler {

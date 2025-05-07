@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	"go-boilerplate/api"
-	"go-boilerplate/api/v1/schemas"
-	"go-boilerplate/internal/services"
 	"net/http"
+
+	"github.com/kkwitslab/go-boilerplate/api"
+	"github.com/kkwitslab/go-boilerplate/api/v1/schemas"
+	"github.com/kkwitslab/go-boilerplate/internal/services"
 
 	"github.com/gofiber/fiber/v2"
 )

@@ -1,11 +1,11 @@
 package routes
 
 import (
-	"go-boilerplate/api/middleware"
-	"go-boilerplate/api/v1/handlers"
-	"go-boilerplate/api/v1/schemas"
-	"go-boilerplate/internal/di"
-	"go-boilerplate/internal/services"
+	"github.com/kkwitslab/go-boilerplate/api/middleware"
+	"github.com/kkwitslab/go-boilerplate/api/v1/handlers"
+	"github.com/kkwitslab/go-boilerplate/api/v1/schemas"
+	"github.com/kkwitslab/go-boilerplate/internal/di"
+	"github.com/kkwitslab/go-boilerplate/internal/services"
 
 	"github.com/gofiber/fiber/v2"
 )
