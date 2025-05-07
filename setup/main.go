@@ -10,22 +10,32 @@ import (
 	"strings"
 )
 
+const (
+	colorReset  = "\033[0m"
+	colorRed    = "\033[31m"
+	colorGreen  = "\033[32m"
+	colorYellow = "\033[33m"
+	colorBlue   = "\033[34m"
+	colorPurple = "\033[35m"
+	colorCyan   = "\033[36m"
+)
+
 func main() {
 	// Get module name from user
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Enter your module name (e.g., github.com/username/project): ")
+	fmt.Printf("%s🚀 %sEnter your module name (e.g., github.com/username/project): %s", colorCyan, colorYellow, colorReset)
 	moduleName, err := reader.ReadString('\n')
 	if err != nil {
-		fmt.Printf("Error reading input: %v\n", err)
+		fmt.Printf("%s❌ Error reading input: %v%s\n", colorRed, err, colorReset)
 		os.Exit(1)
 	}
 	moduleName = strings.TrimSpace(moduleName)
 
 	// Get directory name from user
-	fmt.Print("Enter directory name for the project (press Enter to use module name): ")
+	fmt.Printf("%s📁 %sEnter directory name for the project (press Enter to use module name): %s", colorCyan, colorYellow, colorReset)
 	dirName, err := reader.ReadString('\n')
 	if err != nil {
-		fmt.Printf("Error reading input: %v\n", err)
+		fmt.Printf("%s❌ Error reading input: %v%s\n", colorRed, err, colorReset)
 		os.Exit(1)
 	}
 	dirName = strings.TrimSpace(dirName)
@@ -38,8 +48,9 @@ func main() {
 	sourceDir := filepath.Dir(filepath.Dir(currentFile))
 
 	// Create new directory with specified name
+	fmt.Printf("%s📂 %sCreating project directory...%s\n", colorBlue, colorYellow, colorReset)
 	if err := os.MkdirAll(dirName, 0755); err != nil {
-		fmt.Printf("Error creating directory: %v\n", err)
+		fmt.Printf("%s❌ Error creating directory: %v%s\n", colorRed, err, colorReset)
 		os.Exit(1)
 	}
 
@@ -53,59 +64,65 @@ func main() {
 		"env_example",
 	}
 
+	fmt.Printf("%s📋 %sCopying project files...%s\n", colorBlue, colorYellow, colorReset)
 	for _, file := range filesToCopy {
 		src := filepath.Join(sourceDir, file)
 		dst := filepath.Join(dirName, file)
 
 		if err := copyPath(src, dst); err != nil {
-			fmt.Printf("Error copying %s: %v\n", file, err)
+			fmt.Printf("%s❌ Error copying %s: %v%s\n", colorRed, file, err, colorReset)
 			os.Exit(1)
 		}
+		fmt.Printf("%s  ✓ %s%s\n", colorGreen, file, colorReset)
 	}
 
 	// Change to the new directory
 	if err := os.Chdir(dirName); err != nil {
-		fmt.Printf("Error changing directory: %v\n", err)
+		fmt.Printf("%s❌ Error changing directory: %v%s\n", colorRed, err, colorReset)
 		os.Exit(1)
 	}
 
 	// Initialize new module
+	fmt.Printf("%s🔧 %sInitializing Go module...%s\n", colorBlue, colorYellow, colorReset)
 	cmd := exec.Command("go", "mod", "init", moduleName)
 	if err := cmd.Run(); err != nil {
-		fmt.Printf("Error initializing module: %v\n", err)
+		fmt.Printf("%s❌ Error initializing module: %v%s\n", colorRed, err, colorReset)
 		os.Exit(1)
 	}
 
 	// Update imports in all Go files
+	fmt.Printf("%s🔄 %sUpdating imports...%s\n", colorBlue, colorYellow, colorReset)
 	if err := updateImports(".", "github.com/kkwitslab/go-boilerplate", moduleName); err != nil {
-		fmt.Printf("Error updating imports: %v\n", err)
+		fmt.Printf("%s❌ Error updating imports: %v%s\n", colorRed, err, colorReset)
 		os.Exit(1)
 	}
 
 	// Copy dependencies from original go.mod
+	fmt.Printf("%s📦 %sSetting up dependencies...%s\n", colorBlue, colorYellow, colorReset)
 	cmd = exec.Command("go", "mod", "tidy")
 	if err := cmd.Run(); err != nil {
-		fmt.Printf("Error getting dependencies: %v\n", err)
+		fmt.Printf("%s❌ Error getting dependencies: %v%s\n", colorRed, err, colorReset)
 		os.Exit(1)
 	}
 
 	// Create .env file from env_example
+	fmt.Printf("%s⚙️ %sCreating environment file...%s\n", colorBlue, colorYellow, colorReset)
 	envContent, err := os.ReadFile("env_example")
 	if err != nil {
-		fmt.Printf("Error reading env_example: %v\n", err)
+		fmt.Printf("%s❌ Error reading env_example: %v%s\n", colorRed, err, colorReset)
 		os.Exit(1)
 	}
 	if err := os.WriteFile(".env", envContent, 0644); err != nil {
-		fmt.Printf("Error creating .env file: %v\n", err)
+		fmt.Printf("%s❌ Error creating .env file: %v%s\n", colorRed, err, colorReset)
 		os.Exit(1)
 	}
 
-	fmt.Printf("\nProject setup complete! Your new project is in the '%s' directory.\n", dirName)
-	fmt.Println("Next steps:")
-	fmt.Println("1. cd", dirName)
-	fmt.Println("2. Review and update the .env file")
-	fmt.Println("3. Run 'go mod tidy' to ensure all dependencies are properly set up")
-	fmt.Println("4. Run 'go run main.go' to start the server")
+	fmt.Printf("\n%s✨ %sProject setup complete! Your new project is in the '%s' directory.%s\n", colorGreen, colorYellow, dirName, colorReset)
+	fmt.Printf("\n%s📝 %sNext steps:%s\n", colorPurple, colorYellow, colorReset)
+	fmt.Printf("%s  1. %scd %s%s\n", colorCyan, colorYellow, dirName, colorReset)
+	fmt.Printf("%s  2. %sReview and update the .env file%s\n", colorCyan, colorYellow, colorReset)
+	fmt.Printf("%s  3. %sRun 'go mod tidy' to ensure all dependencies are properly set up%s\n", colorCyan, colorYellow, colorReset)
+	fmt.Printf("%s  4. %sRun 'go run main.go' to start the server%s\n", colorCyan, colorYellow, colorReset)
 }
 
 func updateImports(dir, oldModule, newModule string) error {
