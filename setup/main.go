@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 )
 
@@ -32,12 +33,9 @@ func main() {
 		dirName = filepath.Base(moduleName)
 	}
 
-	// Get current directory
-	currentDir, err := os.Getwd()
-	if err != nil {
-		fmt.Printf("Error getting current directory: %v\n", err)
-		os.Exit(1)
-	}
+	// Get the module's source directory
+	_, currentFile, _, _ := runtime.Caller(0)
+	sourceDir := filepath.Dir(filepath.Dir(currentFile))
 
 	// Create new directory with specified name
 	if err := os.MkdirAll(dirName, 0755); err != nil {
@@ -56,7 +54,7 @@ func main() {
 	}
 
 	for _, file := range filesToCopy {
-		src := filepath.Join(currentDir, file)
+		src := filepath.Join(sourceDir, file)
 		dst := filepath.Join(dirName, file)
 
 		if err := copyPath(src, dst); err != nil {
