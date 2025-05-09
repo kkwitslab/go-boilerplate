@@ -1,9 +1,9 @@
 package routes
 
 import (
-	"github.com/kkwitslab/go-boilerplate/api/middleware"
-	"github.com/kkwitslab/go-boilerplate/api/v1/handlers"
-	"github.com/kkwitslab/go-boilerplate/api/v1/schemas"
+	"github.com/kkwitslab/go-boilerplate/api/rest/v1/handlers"
+	"github.com/kkwitslab/go-boilerplate/api/rest/v1/middleware"
+	"github.com/kkwitslab/go-boilerplate/api/rest/v1/schemas"
 	"github.com/kkwitslab/go-boilerplate/internal/di"
 	"github.com/kkwitslab/go-boilerplate/internal/services"
 

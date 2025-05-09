@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/kkwitslab/go-boilerplate/api"
+	v1 "github.com/kkwitslab/go-boilerplate/api/rest/v1"
 	"github.com/kkwitslab/go-boilerplate/utils"
 )
 
@@ -19,7 +19,7 @@ func ValidatorMiddleware[T any]() fiber.Handler {
 		}
 
 		if err := utils.Validate(&data); err != nil {
-			return api.Error{
+			return v1.Error{
 				Code: http.StatusBadRequest,
 				Err:  "Invalid Request Payload",
 				Data: err,

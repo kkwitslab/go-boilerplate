@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/kkwitslab/go-boilerplate/api"
+	api "github.com/kkwitslab/go-boilerplate/api/rest/v1"
 )
 
 // FiberErrorHandler Fiber error handler for app.Config.ErrorHandler

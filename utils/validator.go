@@ -2,7 +2,7 @@ package utils
 
 import (
 	"github.com/go-playground/validator/v10"
-	"github.com/kkwitslab/go-boilerplate/api/v1/schemas"
+	"github.com/kkwitslab/go-boilerplate/api/rest/v1/schemas"
 )
 
 var v = validator.New(validator.WithRequiredStructEnabled())

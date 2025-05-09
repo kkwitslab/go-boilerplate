@@ -4,12 +4,12 @@ import (
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/kkwitslab/go-boilerplate/api"
+	v1 "github.com/kkwitslab/go-boilerplate/api/rest/v1"
 )
 
 func HandleHealthCheck(c *fiber.Ctx) error {
 
-	return api.Response{
+	return v1.Response{
 		Code: http.StatusOK,
 		Msg:  "Service OK",
 	}

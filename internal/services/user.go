@@ -1,7 +1,7 @@
 package services
 
 import (
-	v1 "github.com/kkwitslab/go-boilerplate/api/v1/schemas"
+	v1 "github.com/kkwitslab/go-boilerplate/api/rest/v1/schemas"
 	"github.com/kkwitslab/go-boilerplate/internal/models"
 	"github.com/kkwitslab/go-boilerplate/internal/repositories"
 	"github.com/kkwitslab/go-boilerplate/utils"

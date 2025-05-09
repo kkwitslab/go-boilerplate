@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/kkwitslab/go-boilerplate/api"
-	"github.com/kkwitslab/go-boilerplate/api/v1/schemas"
+	v1 "github.com/kkwitslab/go-boilerplate/api/rest/v1"
+	"github.com/kkwitslab/go-boilerplate/api/rest/v1/schemas"
 	"github.com/kkwitslab/go-boilerplate/internal/services"
 
 	"github.com/gofiber/fiber/v2"
@@ -22,7 +22,7 @@ func NewUserHandler(userService *services.UserService) *UserHandler {
 func (uh *UserHandler) HandleCreateUser(c *fiber.Ctx) error {
 	var req schemas.CreateUserRequest
 	if err := c.BodyParser(&req); err != nil {
-		return api.Error{
+		return v1.Error{
 			Code: http.StatusBadRequest,
 			Err:  "failed to parse request body",
 		}
@@ -30,13 +30,13 @@ func (uh *UserHandler) HandleCreateUser(c *fiber.Ctx) error {
 
 	user, err := uh.UserService.CreateUser(req)
 	if err != nil {
-		return api.Error{
+		return v1.Error{
 			Code: http.StatusInternalServerError,
 			Err:  "failed to create user",
 		}
 	}
 
-	return api.Response{
+	return v1.Response{
 		Code: http.StatusOK,
 		Msg:  "User Created",
 		Data: schemas.UserResponse{

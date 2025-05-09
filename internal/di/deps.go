@@ -4,15 +4,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/kkwitslab/go-boilerplate/api/middleware"
 	"github.com/kkwitslab/go-boilerplate/internal/config"
-	"github.com/kkwitslab/go-boilerplate/internal/models"
 	"github.com/kkwitslab/go-boilerplate/internal/repositories"
 	"github.com/kkwitslab/go-boilerplate/internal/services"
 
 	"go.uber.org/dig"
 
-	"github.com/gofiber/fiber/v2"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -36,29 +33,6 @@ func initDB() (*gorm.DB, error) {
 		return nil, fmt.Errorf("failed to connect to database: %w", err)
 	}
 	return db, nil
-}
-
-// InitializeApp initializes the application with all dependencies
-func InitializeApp() (*fiber.App, error) {
-	app := fiber.New(fiber.Config{ErrorHandler: middleware.FiberErrorHandler})
-
-	// initialize application dependencies
-	if err := initializeDeps(); err != nil {
-		return nil, fmt.Errorf("failed to initialize app dependencies: %w", err)
-	}
-
-	if err := Container.Invoke(func(db *gorm.DB) {
-		// Run database migrations
-		err := models.RunMigrations(db)
-		if err != nil {
-			fmt.Printf("failed to run migrations: %v\n", err)
-			return
-		}
-	}); err != nil {
-		return nil, fmt.Errorf("failed to invoke db dependency: %v", err)
-	}
-
-	return app, nil
 }
 
 func initializeDeps() error {
@@ -89,4 +63,12 @@ func initializeDeps() error {
 	}
 
 	return nil
+}
+
+func init() {
+	if err := initializeDeps(); err != nil {
+		log.Fatalf("error while initializing app dependencies: %v\n", err)
+	}
+
+	return
 }
