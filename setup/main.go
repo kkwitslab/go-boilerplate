@@ -59,6 +59,7 @@ func main() {
 		"internal",
 		"utils",
 		"api",
+		"protos",
 		"main.go",
 		"Makefile",
 		"env_example",
